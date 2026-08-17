@@ -10,7 +10,10 @@ export default function Alarm({ is24Hour }) {
 
     const checkAlarm = () => {
       const now = new Date()
-      const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+
+      const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(
+        now.getMinutes()
+      ).padStart(2, '0')}`
 
       if (currentTime === activeAlarm) {
         setIsTriggered(true)
@@ -18,6 +21,7 @@ export default function Alarm({ is24Hour }) {
     }
 
     const timer = setInterval(checkAlarm, 1000)
+
     checkAlarm()
 
     return () => clearInterval(timer)
@@ -28,6 +32,7 @@ export default function Alarm({ is24Hour }) {
       if (!value) return 'No alarm set'
 
       const [hours, minutes] = value.split(':').map(Number)
+
       const date = new Date()
       date.setHours(hours, minutes, 0, 0)
 
@@ -41,6 +46,7 @@ export default function Alarm({ is24Hour }) {
 
   const handleSaveAlarm = () => {
     if (!selectedTime) return
+
     setActiveAlarm(selectedTime)
     setIsTriggered(false)
   }
@@ -51,27 +57,46 @@ export default function Alarm({ is24Hour }) {
   }
 
   return (
-    <div className="alarm-panel">
-      <div className="alarm-form">
-        <input
-          type="time"
-          value={selectedTime}
-          onChange={(event) => setSelectedTime(event.target.value)}
-        />
-        <button onClick={handleSaveAlarm}>Set Alarm</button>
-      </div>
+    <>
+      <div className="alarm-panel">
+        <div className="alarm-form">
+          <input
+            type="time"
+            value={selectedTime}
+            onChange={(event) => setSelectedTime(event.target.value)}
+          />
 
-      <div className="alarm-status">
-        <p>Active Alarm</p>
-        <h3>{formatTime(activeAlarm)}</h3>
+          <button onClick={handleSaveAlarm}>
+            Set Alarm
+          </button>
+        </div>
+
+        <div className="alarm-status">
+          <p>Active Alarm</p>
+          <h3>{formatTime(activeAlarm)}</h3>
+        </div>
       </div>
 
       {isTriggered && (
-        <div className="alarm-triggered">
-          <p>Alarm reached</p>
-          <button onClick={handleDismiss}>Dismiss</button>
+        <div className="alarm-popup-overlay">
+          <div className="alarm-popup">
+            <div className="alarm-icon">
+              ⏰
+            </div>
+
+            <h2>Alarm!</h2>
+
+            <p>
+              Your alarm for <strong>{formatTime(activeAlarm)}</strong> has
+              arrived.
+            </p>
+
+            <button onClick={handleDismiss}>
+              Dismiss Alarm
+            </button>
+          </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
