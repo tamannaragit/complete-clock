@@ -1,0 +1,293 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #f1f5f9;
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #334155;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tab-btn:hover {
+  background: #475569;
+  transform: translateY(-1px);
+}
+
+.tab-btn.active {
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.clock-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Analog Clock */
+.clock-face { fill: #1e293b; stroke: #38bdf8; stroke-width: 3; }
+.tick { stroke: #94a3b8; stroke-width: 2; }
+.hand {
+  stroke-linecap: round;
+  transition: transform 0.2s linear;
+  transform-origin: 100px 100px;
+}
+.hour-hand { stroke: #f1f5f9; stroke-width: 5; }
+.minute-hand { stroke: #38bdf8; stroke-width: 3.5; }
+.second-hand { stroke: #f87171; stroke-width: 2; }
+.center-dot { fill: #f1f5f9; }
+
+/* Digital Clock */
+.digital-clock h1 {
+  font-size: 3rem;
+  font-variant-numeric: tabular-nums;
+  margin: 10px 0 0;
+  color: #38bdf8;
+}
+.digital-clock p { color: #94a3b8; margin-top: 5px; }
+
+/* Stopwatch */
+.stopwatch-display {
+  font-size: 3rem;
+  font-variant-numeric: tabular-nums;
+  color: #38bdf8;
+  margin-bottom: 20px;
+}
+
+.stopwatch-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stopwatch-buttons button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #334155;
+  color: #f1f5f9;
+}
+
+.btn-start { background: #22c55e !important; color: #0f172a !important; }
+.btn-pause { background: #facc15 !important; color: #0f172a !important; }
+.btn-reset { background: #f87171 !important; color: #0f172a !important; }
+.stopwatch-buttons button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.lap-list {
+  list-style: none;
+  padding: 0;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.lap-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: #1e293b;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* World Clock */
+.world-clock-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.world-clock-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.world-clock-controls select,
+.world-clock-controls button,
+.alarm-form input,
+.alarm-form button,
+.alarm-triggered button,
+.remove-city-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.world-clock-controls select,
+.alarm-form input {
+  background: #0f172a;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+}
+
+.world-clock-controls button,
+.alarm-form button,
+.alarm-triggered button {
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.world-clock {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.world-clock-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 18px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.world-clock-card:hover {
+  transform: translateY(-2px);
+  border-color: #38bdf8;
+}
+
+.world-clock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.world-clock-card h3 { margin: 0; color: #cbd5e1; }
+.wc-time { font-size: 1.5rem; font-variant-numeric: tabular-nums; color: #38bdf8; margin: 0; }
+.wc-date { color: #94a3b8; font-size: 0.85rem; margin: 6px 0 0; }
+
+.remove-city-btn {
+  background: #f87171;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+/* Alarm */
+.alarm-panel {
+  max-width: 420px;
+  margin: 0 auto;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 24px 20px;
+}
+
+.alarm-form {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.alarm-status {
+  margin-top: 24px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.alarm-status p,
+.alarm-triggered p {
+  margin: 0 0 6px;
+  color: #94a3b8;
+}
+
+.alarm-status h3 {
+  margin: 0;
+  color: #38bdf8;
+  font-size: 1.8rem;
+}
+
+.alarm-triggered {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  border-radius: 10px;
+}
+
+.alarm-triggered p {
+  font-size: 1.05rem;
+  color: #fecaca;
+}
+
+.alarm-triggered button {
+  background: #f87171;
+  color: #fff;
+}
+
+@media (max-width: 540px) {
+  .app {
+    padding: 20px 12px;
+  }
+
+  .tabs {
+    gap: 8px;
+  }
+
+  .tab-btn {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .stopwatch-buttons,
+  .alarm-form,
+  .world-clock-controls {
+    flex-direction: column;
+  }
+
+  .stopwatch-buttons button,
+  .alarm-form input,
+  .alarm-form button,
+  .world-clock-controls select,
+  .world-clock-controls button {
+    width: 100%;
+  }
+}
+
